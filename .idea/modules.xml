@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TZ.iml" filepath="$PROJECT_DIR$/TZ.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzSoftGroup.iml" filepath="$PROJECT_DIR$/tzSoftGroup.iml" />
     </modules>
   </component>
 </project>
