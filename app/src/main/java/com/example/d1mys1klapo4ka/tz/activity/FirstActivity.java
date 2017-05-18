@@ -23,7 +23,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     private Button come, registration;
     private EditText email,password;
 
-    private Helper helper = new Helper(this);
+    Helper helper=new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,11 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+
         Intent intent;
         switch (v.getId()){
             case R.id.bt_come:
+
                 if (!helper.userValid1(email.getText().toString(), password.getText().toString())){
 
                     intent = new Intent(FirstActivity.this, ThirdActivity.class);
