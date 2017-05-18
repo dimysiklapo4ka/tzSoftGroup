@@ -2,7 +2,6 @@ package com.example.d1mys1klapo4ka.tz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -46,17 +45,38 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (register != null){
-            if (helper.equalBd(passwordRegistration.getText().toString(),passwordConfirmation.getText().toString()) &&
-                    helper.bdValid(emailRegistration.toString(),passwordRegistration.toString())){
 
-                helper.addBd(emailRegistration.toString(),passwordRegistration.toString());
+            if (helper.equalPassword1(passwordRegistration.getText().toString(),
+                    passwordConfirmation.getText().toString())&&helper.verificationLength1(
+                            emailRegistration.getText().toString(),passwordRegistration.getText().toString())&&
+                                    helper.isValidEmail1(emailRegistration.getText().toString())&&
+                    helper.emailConfirm1(emailRegistration.getText().toString())){
+
+                helper.addUser1(emailRegistration.toString(),passwordRegistration.toString());
 
                 Intent intent = new Intent(SecondActivity.this,FirstActivity.class);
-                helper.clearBd();
+                //helper.clearBd();
                 startActivity(intent);
             }else {
-                Toast.makeText(SecondActivity.this, "Неверный логин и/или пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SecondActivity.this, "Неверный логин и/или пароль", Toast.LENGTH_SHORT).show();
             }
+
+            //database
+
+//            if (helper.equalPassword(passwordRegistration.getText().toString(),
+//                    passwordConfirmation.getText().toString())&&helper.verificationLength(
+//                    emailRegistration.getText().toString(),passwordRegistration.getText().toString())&&
+//                    helper.isValidEmail(emailRegistration.getText().toString())&&
+//                    helper.emailConfirm(emailRegistration.getText().toString())){
+//
+//                helper.addUser(emailRegistration.toString(),passwordRegistration.toString());
+//
+//                Intent intent = new Intent(SecondActivity.this,FirstActivity.class);
+//                //helper.clearBd();
+//                startActivity(intent);
+//            }else {
+//                Toast.makeText(SecondActivity.this, "Неверный логин и/или пароль", Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 

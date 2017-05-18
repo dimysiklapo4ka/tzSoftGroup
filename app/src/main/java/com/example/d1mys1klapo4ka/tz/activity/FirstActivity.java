@@ -1,12 +1,13 @@
 package com.example.d1mys1klapo4ka.tz.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.d1mys1klapo4ka.tz.R;
 import com.example.d1mys1klapo4ka.tz.activity.helper.Helper;
@@ -43,9 +44,15 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         Intent intent;
         switch (v.getId()){
             case R.id.bt_come:
-                //if (helper.email.)
-                intent = new Intent(FirstActivity.this, ThirdActivity.class);
-                startActivity(intent);
+                if (!helper.userValid1(email.getText().toString(), password.getText().toString())){
+
+                    intent = new Intent(FirstActivity.this, ThirdActivity.class);
+                    intent.putExtra("email",email.getText().toString());
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(FirstActivity.this, "Неверный логин и/или пароль", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.bt_registration:
                 intent = new Intent(FirstActivity.this, SecondActivity.class);
