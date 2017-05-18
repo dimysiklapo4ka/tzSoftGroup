@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.d1mys1klapo4ka.tz.activity.SecondActivity;
 
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
  * Created by d1mys1klapo4ka on 17.05.2017.
  */
 
-public class Helper extends Activity{
+public class Helper{
 
     //Для хеширования паролей
     private MyCustomMD5 md5 = new MyCustomMD5();
@@ -71,18 +73,31 @@ public class Helper extends Activity{
 
 
 
+    DBHelper dbHelper;// = new DBHelper(Helper.this);
+    SQLiteDatabase database;// = dbHelper.getWritableDatabase();
+    ContentValues contentValues;// = new ContentValues();
+    Cursor cursor;// = database.query(DBHelper.TABLE_USERS,null,null,null,null,null,null);
 
 
+    public Helper(Context context) {
+        try {
+            //DBHelper
+            dbHelper = new DBHelper(context);
+            Log.e("№№№", "Helper: "+dbHelper );
+            //SQLiteDatabase
+            database = dbHelper.getWritableDatabase();
+            Log.e("№№№", "database: "+database );
 
+            //ContentValues
+                    contentValues = new ContentValues(null);
+            //Cursor
+                    cursor = database.query(DBHelper.TABLE_USERS,null,null,null,null,null,null);
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-
-
-
-    DBHelper dbHelper = new DBHelper(Helper.this);
-    SQLiteDatabase database = dbHelper.getWritableDatabase();
-    ContentValues contentValues = new ContentValues();
-    Cursor cursor = database.query(DBHelper.TABLE_USERS,null,null,null,null,null,null);
+    }
 
     //Добавление данных
     public void addUser1(String email, String password){
@@ -118,10 +133,9 @@ public class Helper extends Activity{
 
 
     public boolean emailConfirm1(String email){
-
-        int emailIndex = cursor.getColumnIndex(DBHelper.EMAIL);
-
+        Log.e("###", "emailConfirm1: "+cursor);
         while (cursor.moveToNext()){
+            int emailIndex = cursor.getColumnIndex(DBHelper.EMAIL);
 
             String currentEmail = cursor.getString(emailIndex);
             email.equals(currentEmail);
@@ -141,10 +155,11 @@ public class Helper extends Activity{
 
     public boolean userValid1(String email, String password){
 
-        int passwordIndex = cursor.getColumnIndex(DBHelper.PASSWORD);
-        int emailIndex = cursor.getColumnIndex(DBHelper.EMAIL);
-
         while (cursor.moveToNext()){
+
+            int passwordIndex = cursor.getColumnIndex(DBHelper.PASSWORD);
+            int emailIndex = cursor.getColumnIndex(DBHelper.EMAIL);
+
 
             String currentEmail = cursor.getString(emailIndex);
             String currentPassword = cursor.getString(passwordIndex);

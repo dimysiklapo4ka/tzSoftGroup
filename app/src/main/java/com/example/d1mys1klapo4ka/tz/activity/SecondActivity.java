@@ -1,8 +1,11 @@
 package com.example.d1mys1klapo4ka.tz.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.d1mys1klapo4ka.tz.R;
 import com.example.d1mys1klapo4ka.tz.activity.helper.Helper;
+import com.example.d1mys1klapo4ka.tz.activity.settings.Settings;
 
 /**
  * 1. пароль должен быть не менее 4-х символов.
@@ -29,7 +33,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     private EditText passwordRegistration;
     private EditText passwordConfirmation;
 
-    private Helper helper = new Helper();
+    private Helper helper = new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +48,43 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+
+        switch (v.getId()){
+
+            case R.id.bt_register:
+
+                final SharedPreferences sharedPreferences = getSharedPreferences(Settings.FILE_NAME, MODE_PRIVATE);
+                Settings.setMail(emailRegistration.getText().toString(), sharedPreferences);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("get mail", "run: " + Settings.getMail(sharedPreferences));
+                    }
+                }, 1500);
+
+                break;
+
+        }
+
         if (register != null){
 
-            if (helper.equalPassword1(passwordRegistration.getText().toString(),
-                    passwordConfirmation.getText().toString())&&helper.verificationLength1(
-                            emailRegistration.getText().toString(),passwordRegistration.getText().toString())&&
-                                    helper.isValidEmail1(emailRegistration.getText().toString())&&
-                    helper.emailConfirm1(emailRegistration.getText().toString())){
-
-                helper.addUser1(emailRegistration.toString(),passwordRegistration.toString());
-
-                Intent intent = new Intent(SecondActivity.this,FirstActivity.class);
-                //helper.clearBd();
-                startActivity(intent);
-            }else {
-            Toast.makeText(SecondActivity.this, "Неверный логин и/или пароль", Toast.LENGTH_SHORT).show();
-            }
+//            if (helper.equalPassword1(passwordRegistration.getText().toString(),
+//                    passwordConfirmation.getText().toString())&&helper.verificationLength1(
+//                            emailRegistration.getText().toString(),passwordRegistration.getText().toString())&&
+//                                    helper.isValidEmail1(emailRegistration.getText().toString())&&
+//                    helper.emailConfirm1(emailRegistration.getText().toString())){
+//
+//                helper.addUser1(emailRegistration.toString(),passwordRegistration.toString());
+//
+//                Toast.makeText(SecondActivity.this, "error second activity", Toast.LENGTH_SHORT).show();
+//
+//                Intent intent = new Intent(SecondActivity.this,FirstActivity.class);
+//                //helper.clearBd();
+//                startActivity(intent);
+//            }
+//            else {
+//            Toast.makeText(SecondActivity.this, "Неверный логин и/или пароль", Toast.LENGTH_SHORT).show();
+//            }
 
             //database
 

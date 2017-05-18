@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.Map;
 
@@ -28,8 +29,9 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-    db.execSQL("create table " + TABLE_USERS + " (" + ID + " integer primary key autoincrement " + EMAIL + " text not null, " +
-    PASSWORD + " text not null" + ");");
+    db.execSQL("create table " + TABLE_USERS + " (" + ID + " integer primary key, " + EMAIL + " text, " +
+    PASSWORD + " text " + ")");
+        Log.e("###", "onCreate: table created" );
     }
 
     @Override

@@ -23,7 +23,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     private Button come, registration;
     private EditText email,password;
 
-    private Helper helper = new Helper();
+    private Helper helper = new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
