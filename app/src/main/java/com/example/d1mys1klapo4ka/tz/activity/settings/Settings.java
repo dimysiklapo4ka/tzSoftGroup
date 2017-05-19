@@ -12,8 +12,8 @@ public class Settings {
 
     public static String FILE_NAME = "settings";
 
-    public static String USER_MAIL = "user_mail";
-    public static String USER_PASS= "user_pass";
+//    public static String USER_MAIL = "user_mail";
+//    public static String USER_PASS= "user_pass";
 
     private static SharedPreferences settings = null;
     private static SharedPreferences.Editor editor = null;
@@ -29,7 +29,7 @@ public class Settings {
         editor.apply();
     }
 
-    public static void setEmail( String key, String value ){
+    public static void setUser( String key, String value ){
         if( settings == null ){
             init();
         }
@@ -37,27 +37,36 @@ public class Settings {
         editor.apply();
     }
 
-    public static void setPassword( String key, String value ){
+//    public static void setPassword( String key, String value ){
+//        if( settings == null ){
+//            init();
+//        }
+//        editor.putString( key, value );
+//        editor.apply();
+//    }
+
+    public static String getUser( String key ){
         if( settings == null ){
             init();
         }
-        editor.putString( key, value );
-        editor.apply();
+        return settings.getString( key, "###########" );
     }
 
-    public static String getEmail( String key ){
+//    public static String getPassword( String key ){
+//        if( settings == null ){
+//            init();
+//        }
+//        return settings.getString( key, "###########" );
+//    }
+
+    public static boolean settingSearch(String key){
         if( settings == null ){
             init();
         }
-        return settings.getString( key, null );
+        return settings.contains(key);
     }
 
-    public static String getPassword( String key ){
-        if( settings == null ){
-            init();
-        }
-        return settings.getString( key, null );
-    }
+
 //    public static void setMail(String mail, SharedPreferences sharedPreferences){
 //
 //        putToPrefs(mail, USER_MAIL, sharedPreferences);

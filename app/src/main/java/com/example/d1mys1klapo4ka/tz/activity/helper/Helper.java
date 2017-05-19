@@ -26,7 +26,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Helper{
 
     //Для хеширования паролей
-    private MyCustomMD5 md5 = new MyCustomMD5();
+//    private MyCustomMD5 md5 = new MyCustomMD5();
 //
 //    //Хранение пароля и email в виде ключа
 //    Map<String,String> bd = new HashMap<>();
@@ -144,13 +144,15 @@ public class Helper{
     //Добавление данных
     public void addUser1(String email, String password){
 
-        Settings.setEmail(Settings.USER_MAIL, email);
-        Settings.setPassword(Settings.USER_PASS, password);
+        Settings.setUser(email, MyCustomMD5.md5Custom(password) );
+        //Settings.setPassword(Settings.USER_PASS, MyCustomMD5.md5Custom(password));
+
+        Log.e("#####","run: " + Settings.getUser(email));
     }
 
     //Проверка ввода одинаковых паролей
     public boolean equalPassword1(String password, String passwordConfirm){
-        return md5.md5Custom(password).equals(md5.md5Custom(passwordConfirm));
+        return MyCustomMD5.md5Custom(password).equals(MyCustomMD5.md5Custom(passwordConfirm));
     }
 
     //Валидатор минимальной длины пароля и email
@@ -171,7 +173,9 @@ public class Helper{
     //Проверка email на повторный ввод
     public boolean emailConfirm1(String email) {
 
-        if (email.equals(Settings.getEmail(Settings.USER_MAIL))) {
+        if (Settings.settingSearch(email)) {
+
+            Log.e("###", "emailConfirm1: "+email+": "+Settings.getUser(email));
             return false;
         }
 //        Log.e("###", "emailConfirm1: "+cursor);
@@ -193,12 +197,14 @@ public class Helper{
     }
 
     //проверка что ключ и значение совпадают с введеными на первой странице
-
     public boolean userValid1(String email, String password){
 
-        if (email.equals(Settings.getEmail(Settings.USER_MAIL))&&password.equals(Settings.getPassword(
-                Settings.USER_PASS))){
+        if (MyCustomMD5.md5Custom(password).equals(Settings.getUser(email))){
 
+//                (email.equals(Settings.getEmail(Settings.USER_MAIL)) && MyCustomMD5.md5Custom(password).equals(Settings.getPassword(
+//                Settings.USER_PASS))){
+
+//            Log.e("######","valid: " +email +": "+ Settings.getEmail(Settings.USER_MAIL) + ", " +password+": " + Settings.getPassword(Settings.USER_PASS));
             return true;
         }
 
@@ -223,6 +229,9 @@ public class Helper{
 //            return true;
 //        }
 //        cursor.close();
+
+        Log.e("######","valid: " +email +": "+ Settings.getUser(email));
+
         return false;
     }
 }

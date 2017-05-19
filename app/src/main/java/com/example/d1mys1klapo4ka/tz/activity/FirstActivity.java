@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.d1mys1klapo4ka.tz.R;
 import com.example.d1mys1klapo4ka.tz.activity.helper.Helper;
+import com.example.d1mys1klapo4ka.tz.activity.helper.MyCustomMD5;
 
 /**
  * 1. при нажатии кнопки Регистрация переход на второе активити
@@ -46,7 +47,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.bt_come:
 
-                if (!helper.userValid1(email.getText().toString(), password.getText().toString())){
+                if (helper.userValid1(email.getText().toString(), password.getText().toString())){
 
                     intent = new Intent(FirstActivity.this, ThirdActivity.class);
                     intent.putExtra("email",email.getText().toString());

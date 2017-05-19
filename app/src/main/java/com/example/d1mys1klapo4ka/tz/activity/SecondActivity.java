@@ -59,7 +59,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                         helper.isValidEmail1(emailRegistration.getText().toString()) &&
                         helper.emailConfirm1(emailRegistration.getText().toString())) {
 
-                    helper.addUser1(emailRegistration.toString(), passwordRegistration.toString());
+                    helper.addUser1(emailRegistration.getText().toString(), passwordRegistration.getText().toString());
 
                     Toast.makeText(SecondActivity.this, "error second activity", Toast.LENGTH_SHORT).show();
 
