@@ -2,34 +2,42 @@ package com.example.d1mys1klapo4ka.tz.activity.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.StrictMode;
 
 /**
  * Created by dev on 5/18/17.
  */
 
-public class Settings {
+public class HelperSP {
 
-    public static String FILE_NAME = "settings";
+    private static HelperSP helperSP;
 
-//    public static String USER_MAIL = "user_mail";
-//    public static String USER_PASS= "user_pass";
+    private HelperSP(){}
 
-    private static SharedPreferences settings = null;
-    private static SharedPreferences.Editor editor = null;
-    private static Context context = null;
+    public static HelperSP initialization(){
+        if (helperSP == null){
 
-    public static void init( Context cntxt ){
+            helperSP = new HelperSP();
+        }
+        return helperSP;
+    }
+
+    private String FILE_NAME = "settings";
+
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
+    private Context context = null;
+
+    public void init(Context cntxt){
         context = cntxt;
     }
 
-    private static void init(){
+    private void init(){
         settings = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         editor = settings.edit();
         editor.apply();
     }
 
-    public static void setUser( String key, String value ){
+    public void setUser( String key, String value ){
         if( settings == null ){
             init();
         }
@@ -45,7 +53,7 @@ public class Settings {
 //        editor.apply();
 //    }
 
-    public static String getUser( String key ){
+    public String getUser( String key ){
         if( settings == null ){
             init();
         }
@@ -59,7 +67,7 @@ public class Settings {
 //        return settings.getString( key, "###########" );
 //    }
 
-    public static boolean settingSearch(String key){
+    public boolean settingSearch(String key){
         if( settings == null ){
             init();
         }
